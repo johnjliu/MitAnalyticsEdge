@@ -124,14 +124,67 @@ mean(COKE$StockPrice)
 
 
 
+###########################demographics and employment in the united states
+CPS=read.csv("CPSData.csv")
+str(CPS)
+summary(CPS)
 
 
+sort(table(CPS$Industry))
+
+sort(table(CPS$State))
+
+table(CPS$Citizenship)
+(116639+7073) / sum(table(CPS$Citizenship))
+
+table(CPS$Race)
+table(CPS$Race, CPS$Hispanic)
+
+summary(CPS)
+
+table(CPS$Region, is.na(CPS$Married))
+table(CPS$Sex, is.na(CPS$Married))
+table(CPS$Age, is.na(CPS$Married))
+table(CPS$Citizenship, is.na(CPS$Married))
 
 
+table(CPS$State, is.na(CPS$MetroAreaCode))
 
+table(CPS$Region, is.na(CPS$MetroAreaCode))
 
+sort(tapply(is.na(CPS$MetroAreaCode),CPS$State,mean))
 
+str(CPS$MetroAreaCode)
+MetroAreaMap=read.csv("MetroAreaCodes.csv")
+str(MetroAreaMap)
 
+str(CPS$CountryOfBirthCode)
+CountryMap=read.csv("CountryCodes.csv")
+str(CountryMap)
 
+CPS=merge(CPS,MetroAreaMap,by.x="MetroAreaCode",by.y="Code",all.x=TRUE)
+str(CPS)
+summary(CPS)
 
+sort(table(CPS$MetroArea))
 
+sort(tapply(CPS$Hispanic,CPS$MetroArea,mean))
+
+sort(tapply(CPS$Race=="Asian",CPS$MetroArea,mean))
+
+sort(tapply(CPS$Education=="No high school diploma",CPS$MetroArea,mean,na.rm=TRUE))
+
+CPS=merge(CPS,CountryMap,by.x="CountryOfBirthCode",by.y="Code",all.x=TRUE)
+str(CPS)
+summary(CPS)
+
+sort(table(CPS$Country))
+
+table(CPS$MetroArea=="New York-Northern New Jersey-Long Island, NY-NJ-PA",CPS$Country!="United States")
+1668/(1668+3736)
+
+sort(tapply(CPS$Country=="India",CPS$MetroArea,sum,na.rm=TRUE))
+
+sort(tapply(CPS$Country=="Brazil",CPS$MetroArea,sum,na.rm=TRUE))
+
+sort(tapply(CPS$Country=="Somalia",CPS$MetroArea,sum,na.rm=TRUE))
