@@ -188,3 +188,61 @@ sort(tapply(CPS$Country=="India",CPS$MetroArea,sum,na.rm=TRUE))
 sort(tapply(CPS$Country=="Brazil",CPS$MetroArea,sum,na.rm=TRUE))
 
 sort(tapply(CPS$Country=="Somalia",CPS$MetroArea,sum,na.rm=TRUE))
+
+###################Internet privacy poll
+POLL=read.csv("AnonymityPoll.csv")
+summary(POLL)
+str(POLL)
+
+table(POLL$Smartphone)
+summary(POLL$Smartphone)
+
+table(POLL$Region,POLL$State)
+sort(table(subset(POLL,Region=="Midwest")$State))
+
+sort(table(subset(POLL,Region=="South")$State))
+
+table(POLL$Internet.Use,POLL$Smartphone)
+
+summary(POLL)
+
+limited=subset(POLL,Internet.Use==1 | Smartphone==1)
+str(limited)
+
+summary(limited)
+
+mean(limited$Info.On.Internet)
+summary(limited$Info.On.Internet)
+
+str(subset(limited,Info.On.Internet==0))
+str(subset(limited,Info.On.Internet==11))
+
+tapply(limited$Worry.About.Info==1, limited$Worry.About.Info %in% c(1,0),mean)
+table(limited$Worry.About.Info)
+
+table(limited$Anonymity.Possible)
+278/(475+278)
+
+table(limited$Tried.Masking.Identity)
+128/(656+128)
+
+table(limited$Privacy.Laws.Effective)
+186/(541+186)
+
+hist(limited$Age)
+
+plot(limited$Age, limited$Info.On.Internet)
+max(table(limited$Age, limited$Info.On.Internet))
+
+jitter(c(1,2,3))
+
+plot(jitter(limited$Age), jitter(limited$Info.On.Internet))
+
+tapply(limited$Info.On.Internet,limited$Smartphone==1,mean)
+tapply(limited$Info.On.Internet, limited$Smartphone, summary)
+
+tapply(limited$Tried.Masking.Identity==1, limited$Smartphone==1, mean,na.rm=TRUE )
+
+tapply(limited$Tried.Masking.Identity==1, limited$Smartphone==0, mean,na.rm=TRUE )
+
+tapply(limited$Tried.Masking.Identity, limited$Smartphone, table)
