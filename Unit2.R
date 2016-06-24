@@ -142,6 +142,50 @@ RMSE_flu2 = sqrt(SSE_flu2/nrow(fluTest))
 RMSE_flu2
 
 
+#################State Data
+stateData = read.csv("statedata.csv")
+str(stateData)
+head(stateData)
+
+plot(stateData$x, stateData$y)
+
+sort(tapply(stateData$HS.Grad,stateData$state.region,mean))
+
+boxplot( Murder ~state.region, data=stateData)
+tapply(stateData$Murder,stateData$state.region, median )
+
+NEData = subset(stateData, state.region=="Northeast")
+NEData
+which.max(NEData$Murder)
+NEData[6,]
+
+LE.Model1 = lm(Life.Exp ~ Population+ Income+ Illiteracy+ Murder+ HS.Grad+ Frost+ Area, data = stateData )
+summary(LE.Model1)
+
+plot(stateData$Income, stateData$Life.Exp)
+
+LE.Model2 = lm(Life.Exp ~ Population+ Income+ Illiteracy+ Murder+ HS.Grad+ Frost, data = stateData )
+summary(LE.Model2)
+
+LE.Model3 = lm(Life.Exp ~ Population+ Income+ Murder+ HS.Grad+ Frost, data = stateData )
+summary(LE.Model3)
+
+LE.Model4 = lm(Life.Exp ~ Population+ Murder+ HS.Grad+ Frost, data = stateData )
+summary(LE.Model4)
+
+sort(predict(LE.Model4))
+which.min(predict(LE.Model4))
+stateData[1,]
+
+which.min(stateData$Life.Exp)
+stateData[40,]
+
+stateData[which.max(predict(LE.Model4)),]
+stateData[which.max(stateData$Life.Exp),]
+
+sort(abs(LE.Model4$residuals))
+stateData[which.min(abs(LE.Model4$residuals)),]
+stateData[which.max(abs(LE.Model4$residuals)),]
 
 
 
@@ -188,49 +232,3 @@ max(abs(salesPred4 - elantraTest$ElantraSales))
 
 which.max(abs(salesPred4 - elantraTest$ElantraSales))  #returns 14 5 the fifth row
 elantraTest[5,]
-
-
-#################State Data
-stateData = read.csv("statedata.csv")
-str(stateData)
-head(stateData)
-
-plot(stateData$x, stateData$y)
-
-sort(tapply(stateData$HS.Grad,stateData$state.region,mean))
-
-boxplot( Murder ~state.region, data=stateData)
-tapply(stateData$Murder,stateData$state.region, median )
-
-NEData = subset(stateData, state.region=="Northeast")
-NEData
-which.max(NEData$Murder)
-NEData[6,]
-
-LE.Model1 = lm(Life.Exp ~ Population+ Income+ Illiteracy+ Murder+ HS.Grad+ Frost+ Area, data = stateData )
-summary(LE.Model1)
-
-plot(stateData$Income, stateData$Life.Exp)
-
-LE.Model2 = lm(Life.Exp ~ Population+ Income+ Illiteracy+ Murder+ HS.Grad+ Frost, data = stateData )
-summary(LE.Model2)
-
-LE.Model3 = lm(Life.Exp ~ Population+ Income+ Murder+ HS.Grad+ Frost, data = stateData )
-summary(LE.Model3)
-
-LE.Model4 = lm(Life.Exp ~ Population+ Murder+ HS.Grad+ Frost, data = stateData )
-summary(LE.Model4)
-
-sort(predict(LE.Model4))
-which.min(predict(LE.Model4))
-stateData[1,]
-
-which.min(stateData$Life.Exp)
-stateData[40,]
-
-stateData[which.max(predict(LE.Model4)),]
-stateData[which.max(stateData$Life.Exp),]
-
-sort(abs(LE.Model4$residuals))
-stateData[which.min(abs(LE.Model4$residuals)),]
-stateData[which.max(abs(LE.Model4$residuals)),]
