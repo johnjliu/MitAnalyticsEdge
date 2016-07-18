@@ -6,6 +6,8 @@
 # Read in the data
 stevens = read.csv("stevens.csv")
 str(stevens)
+head(stevens)
+summary(stevens)
 
 # Split the data
 library(caTools)
@@ -101,3 +103,4 @@ table(Test$Reverse, PredictCV)
 (59+64)/(59+18+29+64)
 
 prp(StevensTreeCV)
+

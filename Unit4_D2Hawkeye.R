@@ -7,7 +7,8 @@
 Claims = read.csv("ClaimsData.csv")
 
 str(Claims)
-
+head(Claims)
+summary(Claims)
 # Percentage of patients in each cost bucket
 table(Claims$bucket2009)/nrow(Claims)
 
@@ -87,3 +88,4 @@ table(ClaimsTest$bucket2009, PredictTest)
 (94310 + 18942 + 4692 + 636 + 2)/nrow(ClaimsTest)
 
 sum(as.matrix(table(ClaimsTest$bucket2009, PredictTest))*PenaltyMatrix)/nrow(ClaimsTest)
+
