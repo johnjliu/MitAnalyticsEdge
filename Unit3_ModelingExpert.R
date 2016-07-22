@@ -69,6 +69,14 @@ table(qualityTrain$PoorCare, predictTrain > 0.2)
 
 
 
+table(qualityTrain$PoorCare, predictTrain > 0.1)
+24/25
+9/74
+
+table(qualityTrain$PoorCare, predictTrain > 0.9)
+2/25
+74/74
+
 # Video 6
 
 # Install and load ROCR package
@@ -94,4 +102,4 @@ plot(ROCRperf, colorize=TRUE, print.cutoffs.at=seq(0,1,by=0.1), text.adj=c(-0.2,
 predictTest = predict(QualityLog,type="response",newdata = qualityTest)
 ROCRpredTest=prediction(predictTest,qualityTest$PoorCare)
 auc=as.numeric(performance(ROCRpredTest,"auc")@y.values)
-
+auc
